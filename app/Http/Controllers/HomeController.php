@@ -169,7 +169,8 @@ class HomeController extends Controller
             $cart = cart::find($cart_id);
             $cart->delete();
         }
-        $order = order::all();
+        $id = Auth::user()->id;
+        $order = order::where('user_id', '=', $id)->get();
 
         return view('home.show_order', compact('order'))->with('message', 'Your order have been placed successfully');
 
